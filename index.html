@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Belote dupliquée</title>
+</head>
+<body>
+
+<h2>Belote dupliquée</h2>
+
+<label>Numéro de la donne :</label>
+<input id="donne" type="number" value="12" min="1">
+
+<button onclick="afficher()">Afficher</button>
+
+<pre id="resultat"></pre>
+
+<script>
+function afficher() {
+  const numero = document.getElementById("donne").value;
+
+  fetch("donnes/donnes.json")
+    .then(r => r.json())
+    .then(data => {
+      const donne = data.donnes.find(d => d.id == numero);
+      document.getElementById("resultat").textContent =
+        JSON.stringify(donne, null, 2);
+    });
+}
+</script>
+
+</body>
+</html>
