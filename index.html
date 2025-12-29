@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -6,27 +7,44 @@
 </head>
 <body>
 
-<h2>Belote dupliquée</h2>
+<h1>Belote dupliquée</h1>
 
-<label>Numéro de la donne :</label>
-<input id="donne" type="number" value="12" min="1">
+<p>Donne : <strong>12</strong></p>
 
-<button onclick="afficher()">Afficher</button>
+<button id="btnAfficher">Afficher</button>
 
-<pre id="resultat"></pre>
+<div id="resultat"></div>
 
 <script>
-function afficher() {
-  const numero = document.getElementById("donne").value;
+document.getElementById("btnAfficher").addEventListener("click", function () {
 
-  fetch("donnes/donnes.json")
-    .then(r => r.json())
+  fetch("donnes.json")
+    .then(response => response.json())
     .then(data => {
-      const donne = data.donnes.find(d => d.id == numero);
-      document.getElementById("resultat").textContent =
-        JSON.stringify(donne, null, 2);
+
+      const donne = data.donnes.find(d => d.id === 12);
+
+      if (!donne) {
+        document.getElementById("resultat").innerText =
+          "Donne 12 non trouvée";
+        return;
+      }
+
+      document.getElementById("resultat").innerHTML = `
+        <h2>Joueur 1</h2>
+        <p>${donne.joueur1.join(" , ")}</p>
+
+        <h2>Joueur 2</h2>
+        <p>${donne.joueur2.join(" , ")}</p>
+
+        <h2>Joueur 3</h2>
+        <p>${donne.joueur3.join(" , ")}</p>
+
+        <h2>Joueur 4</h2>
+        <p>${donne.joueur4.join(" , ")}</p>
+      `;
     });
-}
+});
 </script>
 
 </body>
