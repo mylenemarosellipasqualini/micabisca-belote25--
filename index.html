@@ -22,7 +22,7 @@ document.getElementById("btnAfficher").addEventListener("click", function () {
     .then(response => response.json())
     .then(data => {
 
-      const donne = data.donnes.find(d => d.id === 12);
+      const donne = data.find(d => d.id === 12);
 
       if (!donne) {
         document.getElementById("resultat").innerText =
@@ -49,3 +49,4 @@ document.getElementById("btnAfficher").addEventListener("click", function () {
 
 </body>
 </html>
+
